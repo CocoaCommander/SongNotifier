@@ -12,6 +12,7 @@ import kotlinx.coroutines.launch
 import kotlin.random.Random
 
 const val API_KEY = "68d85771-fdbd-46d4-98be-5806d0356607"
+const val CARD_DATA_KEY = "CARD_DATA_KEY"
 
 class MainActivity : AppCompatActivity() {
 

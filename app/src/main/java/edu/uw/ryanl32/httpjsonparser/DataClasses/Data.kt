@@ -1,5 +1,7 @@
 package edu.uw.ryanl32.httpjsonparser.DataClasses
 
+import java.io.Serializable
+
 data class Data(
     val artist: String,
     val attacks: List<Attack>,
@@ -23,4 +25,4 @@ data class Data(
     val tcgplayer: Tcgplayer,
     val types: List<String>,
     val weaknesses: List<Weaknesse>
-)
+): Serializable
