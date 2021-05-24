@@ -26,6 +26,16 @@
         android:text="@string/test_name"
         android:textSize="20sp"
         />
+    <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/switchPeriodicRefresh"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/btnRefresh"
+        app:layout_constraintLeft_toLeftOf="@+id/tvCardName"
+        app:layout_constraintRight_toRightOf="@+id/tvCardName"
+        android:text="Turn on constant refresh"
+        app:switchPadding="30dp"
+        />
     <Button
         android:id="@+id/btnRefresh"
         android:layout_width="wrap_content"

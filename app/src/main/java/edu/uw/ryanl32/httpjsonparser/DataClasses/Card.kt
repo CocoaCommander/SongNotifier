@@ -1,7 +1,7 @@
 package edu.uw.ryanl32.httpjsonparser.DataClasses
 
-import android.os.Parcelable
 import java.io.Serializable
+
 
 data class Card(
     val count: Int,

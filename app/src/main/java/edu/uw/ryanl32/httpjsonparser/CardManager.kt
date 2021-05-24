@@ -1,11 +1,11 @@
 package edu.uw.ryanl32.httpjsonparser
 
-import edu.uw.ryanl32.httpjsonparser.DataClasses.Card
+import edu.uw.ryanl32.httpjsonparser.DataClasses.Data
 
 class CardManager {
-    var currCard: Card? = null
+    var currCard: Data? = null
         private set
-    fun setCard(card: Card) {
+    fun setCard(card: Data) {
         currCard = card
     }
 }

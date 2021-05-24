@@ -20,7 +20,9 @@ class MainActivity : AppCompatActivity() {
     private var randomDexNum: Int = Random.nextInt(1, 899)
 
     private val cardApp: CardApplication by lazy { application as CardApplication }
-    private val dataRepository by lazy { cardApp.dataRepository }
+    // private val dataRepository by lazy { cardApp.dataRepository }
+    private val refreshCardManager: RefreshCardManager by lazy { cardApp.refreshCardManager }
+    private val cardManager: CardManager by lazy { cardApp.cardManager}
 
     private lateinit var receivedCard: Data
 
@@ -31,23 +33,38 @@ class MainActivity : AppCompatActivity() {
         with(binding) {
 
             // val cardManager = cardApp.cardManager
+            if (cardManager.currCard != null) {
+                tvCardName.text = cardManager.currCard?.name
+                ivCardArt.load(cardManager.currCard?.images?.large)
+            }
 
             btnRefresh.setOnClickListener {
-                loadCards(randomDexNum, binding)
-                randomDexNum = Random.nextInt(1, 899)
+                refreshCardManager.initCardRefresh()
+                loadCards(cardManager.currCard, binding)
             }
+
+            switchPeriodicRefresh.setOnCheckedChangeListener { _, isChecked ->
+                if (isChecked) {
+                    refreshCardManager.initCardRefresh()
+                    loadCards(cardManager.currCard, binding)
+                    refreshCardManager.startPeriodicCardRefresh()
+                } else {
+                    refreshCardManager.stopPeriodicCardRefresh()
+                }
+            }
+
+
         }
     }
 
-    private fun loadCards(dexNum: Int, binding: ActivityMainBinding) {
+    private fun loadCards(card: Data?, binding: ActivityMainBinding) {
         lifecycleScope.launch {
             runCatching {
                 Toast.makeText(this@MainActivity, "Loading...", Toast.LENGTH_SHORT).show()
-                val card: Card = dataRepository.getCard("nationalPokedexNumbers:[${dexNum} TO ${dexNum}]")
-                receivedCard = card.data[Random.nextInt(0, card.data.size)]
                 with(binding) {
-                    tvCardName.text = receivedCard.name
-                    ivCardArt.load(receivedCard.images.large)
+                    // val tempData = intent.getParcelableExtra<Data>(CARD_DATA_KEY)
+                    tvCardName.text = card?.name
+                    ivCardArt.load(card?.images?.large)
                 }
             }.onFailure {
                 Toast.makeText(this@MainActivity, "Load failed", Toast.LENGTH_SHORT).show()
